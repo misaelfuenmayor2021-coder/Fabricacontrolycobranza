@@ -9022,6 +9022,18 @@ if (document.readyState === "loading") {
   });
 </script>
 
+<script>
+function switchPublicTab(tabId) {
+  const prov = document.getElementById('prov-container');
+  const ven = document.getElementById('ven-container');
+  
+  if (prov) prov.style.display = 'none';
+  if (ven) ven.style.display = 'none';
+  
+  const target = document.getElementById(tabId);
+  if (target) target.style.display = 'block';
+}
+</script>
 
 </body>
 </html>
