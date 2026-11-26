@@ -9068,7 +9068,10 @@ if (document.readyState === "loading") {
       if (approvedStock.length === 0) {
         stockListEl.innerHTML = '<p class="text-gray-400 col-span-full py-4 text-center">No hay stock de proveedores disponible en este momento.</p>';
       } else {
-        stockListEl.innerHTML = approvedStock.map(st => {
+                stockListEl.innerHTML = approvedStock.map(st=\> '').join('');`.
+      }
+    }
+
 <!-- ========================================== -->
 <!-- MÓDULO INTEGRADO: ESPACIO DE VENDEDORES WEB -->
 <!-- ========================================== -->
