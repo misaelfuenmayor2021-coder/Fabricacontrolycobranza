@@ -1183,30 +1183,35 @@ window.onerror = function(mensaje, archivo, linea, columna, error) {
         </button>
       </div>
 
-      <div id="brainDashboardView" class="hidden space-y-5">
-        <!-- Pestañas del Cerebro Central (Organizadas por Flujo Operativo + Contadores de Mensajes) -->
-        <div class="space-y-2 border-b border-white/10 pb-3 text-xs">
-          <div class="flex flex-wrap items-center gap-1.5">
-            <span class="text-[10px] uppercase font-extrabold text-[#d4af37] mr-1">Operación y Avisos:</span>
-            <button onclick="switchBrainTab('bTabTasas')" id="tabBtn-bTabTasas" class="brain-tab bg-[#d4af37] text-black font-bold px-3 py-1.5 rounded-lg">1. Tasas BCV y Márgenes</button>
-            <button onclick="switchBrainTab('bTabPedidos')" id="tabBtn-bTabPedidos" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">2. Pedidos Web <span id="badge-bTabPedidos" class="hidden bg-red-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
-            <button onclick="switchBrainTab('bTabRutas')" id="tabBtn-bTabRutas" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">3. Rutas y Cobros <span id="badge-bTabRutas" class="hidden bg-amber-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
-            <button onclick="switchBrainTab('bTabFitoCuotasAdmin')" id="tabBtn-bTabFitoCuotasAdmin" class="brain-tab bg-white/10 text-[#d4af37] border border-[#d4af37]/40 font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">4. Apartado FitoCuotas <span id="badge-bTabFitoCuotasAdmin" class="hidden bg-blue-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
-            <button onclick="switchBrainTab('bTabFiscal')" id="tabBtn-bTabFiscal" class="brain-tab bg-white/10 text-amber-300 border border-amber-500/40 font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-clipboard-check"></i>5. Bitácora <span id="badge-bTabFiscal" class="hidden bg-amber-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
-            <button onclick="switchBrainTab('bTabFlujoCaja')" id="tabBtn-bTabFlujoCaja" class="brain-tab bg-white/10 text-emerald-300 border border-emerald-500/40 font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-scale-balanced"></i>Flujo de Caja</button>
-          </div>
-          <div class="flex flex-wrap items-center gap-1.5">
-            <span class="text-[10px] uppercase font-extrabold text-emerald-400 mr-1">Almacén y Catálogos:</span>
-            <button onclick="switchBrainTab('bTabMateriaPrima')" id="tabBtn-bTabMateriaPrima" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg">6. Materia Prima</button>
-            <button onclick="switchBrainTab('bTabLaboratorio')" id="tabBtn-bTabLaboratorio" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">7. Laboratorio <span id="badge-bTabLaboratorio" class="hidden bg-amber-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
-            <button onclick="switchBrainTab('bTabMultirrubro')" id="tabBtn-bTabMultirrubro" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">8. Depósito Multirrubro <span id="badge-bTabMultirrubro" class="hidden bg-amber-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
-            <button onclick="switchBrainTab('bTabStockProveedores')" id="tabBtn-bTabStockProveedores" class="brain-tab bg-white/10 text-amber-300 border border-amber-500/40 font-bold px-3 py-1.5 rounded-lg">9. Stock Proveedores</button>
-            <button onclick="switchBrainTab('bTabCatalogosManager')" id="tabBtn-bTabCatalogosManager" class="brain-tab bg-white/10 text-emerald-300 border border-emerald-500/40 font-bold px-3 py-1.5 rounded-lg">10. Catálogos y Fotos</button>
-            <button onclick="switchBrainTab('bTabMedia')" id="tabBtn-bTabMedia" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg">11. Videos, Pagos y Redes</button>
-            <button type="button" onclick="cleanSafeLocalCache()" class="bg-white/5 hover:bg-white/15 text-emerald-300 border border-emerald-500/30 font-bold px-2.5 py-1.5 rounded-lg ml-auto"><i class="fa-solid fa-broom mr-1"></i>Limpiar Caché</button>
-            <button onclick="switchBrainTab('bTabProveedores')" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">Alianza Proveedores</button>
-<button onclick="switchBrainTab('bTabVendedores')" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">Red Vendedores Web</button>
+<div id="brainDashboardView" class="hidden space-y-5">
+  <!-- Pestañas del Cerebro Central (Organizadas por Flujo Operativo + Contadores de Mensajes) -->
+  <div class="space-y-2 border-b border-white/10 pb-3 text-xs">
+    <div class="flex flex-wrap items-center gap-1.5">
+      <span class="text-[10px] uppercase font-extrabold text-[#d4af37] mr-1">1. Operación y Avisos:</span>
+      <button onclick="switchBrainTab('bTabTasas')" id="btn-bTabTasas" class="brain-tab bg-[#d4af37] text-black font-bold px-3 py-1.5 rounded-lg">Tasas BCV y Márgenes</button>
+      <button onclick="switchBrainTab('bTabPedidos')" id="btn-bTabPedidos" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">Pedidos Web <span id="badge-bTabPedidos" class="hidden bg-red-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
+      <button onclick="switchBrainTab('bTabRutas')" id="btn-bTabRutas" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">Rutas y Cobros <span id="badge-bTabRutas" class="hidden bg-amber-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
+      <button onclick="switchBrainTab('bTabFitoCuotasAdmin')" id="btn-bTabFitoCuotasAdmin" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">Apartado FitoCuotas <span id="badge-bTabFitoCuotasAdmin" class="hidden bg-blue-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
+      <button onclick="switchBrainTab('bTabFiscal')" id="btn-bTabFiscal" class="brain-tab bg-white/10 text-amber-300 border border-amber-500/40 font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-clipboard-check"></i> Bitácora <span id="badge-bTabFiscal" class="hidden bg-amber-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
+      <button onclick="switchBrainTab('bTabFlujoCaja')" id="btn-bTabFlujoCaja" class="brain-tab bg-white/10 text-emerald-300 border border-emerald-500/40 font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-scale-balanced"></i>Flujo de Caja</button>
+    </div>
 
+    <div class="flex flex-wrap items-center gap-1.5">
+      <span class="text-[10px] uppercase font-extrabold text-emerald-400 mr-1">2. Almacén y Catálogos:</span>
+      <button onclick="switchBrainTab('bTabMateriaPrima')" id="btn-bTabMateriaPrima" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg">Materia Prima</button>
+      <button onclick="switchBrainTab('bTabLaboratorio')" id="btn-bTabLaboratorio" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">Laboratorio <span id="badge-bTabLaboratorio" class="hidden bg-amber-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
+      <button onclick="switchBrainTab('bTabMultirrubro')" id="btn-bTabMultirrubro" class="brain-tab bg-white/10 text-white font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">Depósito Multirrubro <span id="badge-bTabMultirrubro" class="hidden bg-amber-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
+      <button onclick="switchBrainTab('bTabStockProveedores')" id="btn-bTabStockProveedores" class="brain-tab bg-white/10 text-amber-300 border border-amber-500/40 font-bold px-3 py-1.5 rounded-lg">Stock Proveedores</button>
+      <button onclick="switchBrainTab('bTabCatalogosManager')" id="btn-bTabCatalogosManager" class="brain-tab bg-white/10 text-emerald-300 border border-emerald-500/40 font-bold px-3 py-1.5 rounded-lg">Catálogos y Fotos</button>
+      <button onclick="switchBrainTab('bTabMedia')" id="btn-bTabMedia" class="brain-tab bg-white/10 text-emerald-300 border border-emerald-500/40 font-bold px-3 py-1.5 rounded-lg">Videos, Pagos y Redes</button>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-white/5">
+      <span class="text-[10px] uppercase font-extrabold text-amber-400 mr-1">3. Aprobaciones y Sistema:</span>
+      <button onclick="switchBrainTab('bTabProveedores')" id="btn-bTabProveedores" class="brain-tab bg-amber-500/20 border border-amber-500/50 text-amber-300 font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">Alianza Proveedores <span id="badge-bTabProveedores" class="hidden bg-red-600 text-white text-[10px] font-extrabold px-1.5 py-0.2 rounded-full">0</span></button>
+      <button onclick="switchBrainTab('bTabVendedores')" id="btn-bTabVendedores" class="brain-tab bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">Red Vendedores Web <span id="badge-bTabVendedores" class="hidden bg-red-60
+
+      
           </div>
         </div>
 
