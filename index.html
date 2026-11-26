@@ -8225,34 +8225,24 @@ if (document.readyState === "loading") {
     });
 
 
-// ==================== LÓGICA MODULAR: VENDEDORES WEB, PROVEEDORES Y APROBACIÓN A STOCK ====================
+// ==================== LÓGICA MODULAR: VENDEDORES WEB Y PROVEEDORES ====================
 (function initVendorAndSupplierWorkflow() {
-  if (typeof window.systemState === 'undefined' || !window.systemState) {
-    window.systemState = {};
-  }
-  if (!Array.isArray(window.systemState.supplierStock)) {
-    window.systemState.supplierStock = [];
-  }
-  if (!Array.isArray(window.systemState.multirrubro)) {
-    window.systemState.multirrubro = [];
-  }
-  if (!Array.isArray(window.systemState.vendorWebSubmissions)) {
-    window.systemState.vendorWebSubmissions = [];
-  }
-  if (!Array.isArray(window.systemState.supplierProposals)) {
-    window.systemState.supplierProposals = [];
-  }
+  if (typeof window.systemState === "undefined") window.systemState = {};
+  if (!Array.isArray(window.systemState.supplierStock)) window.systemState.supplierStock = [];
+  if (!Array.isArray(window.systemState.multirrubro)) window.systemState.multirrubro = [];
+  if (!Array.isArray(window.systemState.vendorWebSubmissions)) window.systemState.vendorWebSubmissions = [];
+  if (!Array.isArray(window.systemState.supplierProposals)) window.systemState.supplierProposals = [];
 
   let pendingProvPhotoData = "";
 
   window.handleProvSubmissionFile = function(event) {
     const file = event && event.target && event.target.files && event.target.files[0];
-    const statusEl = document.getElementById("provRegImgStatus");
+    const statusEl = document.getElementById("provFotoStatus");
     if (!file) return;
     const reader = new FileReader();
     reader.onload = function(e) {
       pendingProvPhotoData = e.target.result || "";
-      if (statusEl) statusEl.textContent = "Foto lista: " + file.name;
+      if (statusEl) statusEl.textContent = "Foto cargada correctamente ✓";
     };
     reader.readAsDataURL(file);
   };
@@ -8262,7 +8252,7 @@ if (document.readyState === "loading") {
       window.persistSystemState();
     } else {
       try {
-        localStorage.setItem("fito100_systemState_backup", JSON.stringify(window.systemState));
+        localStorage.setItem("fito100_systemState", JSON.stringify(window.systemState));
       } catch (err) {
         console.warn("Respaldo local no disponible:", err);
       }
@@ -8270,13 +8260,13 @@ if (document.readyState === "loading") {
   }
 
   function getWhatsAppPhone() {
-    const cfgPhone = window.systemState && window.systemState.config && window.systemState.config.whatsappPhone;
-    return String(cfgPhone || "584164030696").replace(/\D/g, "") || "584164030696";
+    const cfgPhone = window.systemState && window.systemState.config && window.systemState.config.whatsapp;
+    return String(cfgPhone || "584164030696").replace(/\D/g, "");
   }
 
   window.invitarProveedorWhatsApp = function() {
     const phone = getWhatsAppPhone();
-    const msg = "Hola, quiero información sobre 'Vende con Nosotros' y registrar mercancía como proveedor en Fitocosmética y Perfumes al 100%.";
+    const msg = "Hola, quiero información sobre cómo postular mi catálogo como proveedor en Fitocosmética y Perfumes al 100%.";
     window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg), "_blank");
   };
 
@@ -8288,22 +8278,22 @@ if (document.readyState === "loading") {
 
   window.solicitarImpulsoIAProveedor = function() {
     const phone = getWhatsAppPhone();
-    const msg = "Hola, soy proveedor y me interesa el impulso con Inteligencia Artificial para mejorar la presentación y visualización de mis productos.";
+    const msg = "Hola, soy proveedor y me interesa solicitar el servicio de Impulso IA para mis productos.";
     window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg), "_blank");
   };
 
-  // 1. Vendedor Web registra un producto -> Queda PENDIENTE DE APROBACIÓN (no entra directo al almacén)
+  // 1. Vendedor Web registra un producto -> Queda PENDIENTE
   window.submitVendorWebProduct = function() {
-    const seller = (document.getElementById("vwSellerName")?.value || "").trim() || "Vendedor Web";
+    const seller = (document.getElementById("vwSellerName")?.value || "").trim();
     const name = (document.getElementById("vwProdName")?.value || "").trim();
-    const rubro = (document.getElementById("vwProdRubro")?.value || "").trim() || "General";
+    const rubro = (document.getElementById("vwProdRubro")?.value || "General").trim();
     const price = parseFloat(document.getElementById("vwProdPrice")?.value || "0") || 0;
     const qty = Math.max(1, parseInt(document.getElementById("vwProdQty")?.value || "1", 10) || 1);
     const img = (document.getElementById("vwProdImg")?.value || "").trim();
     const note = (document.getElementById("vwProdNote")?.value || "").trim();
 
     if (!name) {
-      alert("Por favor indica el nombre del producto para enviarlo a revisión.");
+      alert("Por favor indica el nombre del producto.");
       return;
     }
 
@@ -8316,18 +8306,18 @@ if (document.readyState === "loading") {
       qty: qty,
       img: img,
       note: note,
-      status: "pendiente", // pendiente | aprobado | rechazado
+      status: "pendiente",
       createdAt: new Date().toLocaleString("es-VE")
     });
 
-    ["vwProdName", "vwProdRubro", "vwProdPrice", "vwProdQty", "vwProdImg", "vwProdNote"].forEach(id => {
+    ["vwProdName", "vwProdRubro", "vwProdPrice", "vwProdImg", "vwProdNote"].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = "";
     });
 
     safePersist();
     renderVendorWebModule();
-    alert("Producto enviado a revisión. Quedará en estado PENDIENTE DE APROBACIÓN antes de pasar al Stock con Proveedores.");
+    alert("Producto enviado a revisión. Quedará publicado una vez aprobado.");
   };
 
   // 2. Proveedor envía datos, dirección, foto y producto desde "Vende con Nosotros" -> Queda PENDIENTE DE APROBACIÓN
@@ -8417,16 +8407,62 @@ if (document.readyState === "loading") {
   };
 
   window.rejectSubmissionItem = function(sourceType, itemId) {
+  
+
+  // 3. Aprobación por parte del sistema / administración -> Pasa al Almacén de Stock con Proveedores
+  window.approveSubmissionToSupplierStock = function(sourceType, itemId) {
     const list = sourceType === "vendorWeb"
       ? window.systemState.vendorWebSubmissions
       : window.systemState.supplierProposals;
+
     const item = list.find(x => x.id === itemId);
     if (!item) return;
+
+    item.status = "aprobado";
+    item.approvedAt = new Date().toLocaleString("es-VE");
+
+    const title = sourceType === "vendorWeb" ? item.name : item.prodName;
+    const cost = sourceType === "vendorWeb" ? (item.priceUsd || 0) : (item.costUsd || 0);
+    const supplierLabel = sourceType === "vendorWeb"
+      ? ("Vendedor Web: " + item.seller)
+      : (item.providerName + (item.address ? " (" + item.address + ")" : ""));
+
+    const stockItem = {
+      id: "supstock_" + Date.now() + "_" + Math.floor(Math.random() * 1000),
+      name: title,
+      rubro: item.rubro || "General",
+      costUsd: cost,
+      freightUsd: 0,
+      qty: item.qty || 1,
+      supplier: supplierLabel,
+      img: item.img || "",
+      showDetal: true,
+      showMayor: true,
+      showFitoCuotas: false,
+      vendorWebEnabled: true,
+      approvedSource: sourceType,
+      updatedAt: new Date().toLocaleString("es-VE")
+    };
+
+    window.systemState.supplierStock.unshift(stockItem);
+    safePersist();
+    renderVendorWebModule();
+    if (typeof window.renderSupplierStockManager === "function") window.renderSupplierStockManager();
+  };
+
+  window.rejectSubmissionItem = function(sourceType, itemId) {
+    const list = sourceType === "vendorWeb"
+      ? window.systemState.vendorWebSubmissions
+      : window.systemState.supplierProposals;
+
+    const item = list.find(x => x.id === itemId);
+    if (!item) return;
+
     item.status = "rechazado";
     safePersist();
     renderVendorWebModule();
   };
-
+    
   // 4. Distribuir un producto aprobado del Stock con Proveedores a vitrinas / catálogo multirrubro
   window.distributeSupplierStockToShowcases = function(stockId, targetShowcase) {
     const sItem = (window.systemState.supplierStock || []).find(x => x.id === stockId);
