@@ -1,6 +1,4 @@
-
-
-un<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -424,6 +422,36 @@ un<!DOCTYPE html>
         <button onclick="switchPublicTab('pagos')" class="text-gray-300 font-semibold">Pagos / QR</button>
       </div>
     </header>
+<!-- CONTENEDORES DE PESTAÑAS: ALIANZA PROVEEDORES Y RED VENDEDORES -->
+<div id="proveedores" class="brain-tab-content hidden max-w-7xl mx-auto px-4 py-6 space-y-6">
+    <section class="emerald-card rounded-2xl p-6 border border-emerald-500/30">
+        <div class="flex items-center gap-3 mb-4">
+            <i class="fa-solid fa-handshake text-[#0f6b43] text-2xl"></i>
+            <h2 class="text-xl font-bold text-white">Alianza de Proveedores</h2>
+        </div>
+        <p class="text-gray-300 text-sm mb-4">
+            Conecta tu catálogo e inventario directamente con nuestra red comercial.
+        </p>
+        <div id="proveedoresContent" class="space-y-4">
+            <!-- El contenido dinámico de proveedores se renderizará aquí -->
+        </div>
+    </section>
+</div>
+
+<div id="vendedores" class="brain-tab-content hidden max-w-7xl mx-auto px-4 py-6 space-y-6">
+    <section class="emerald-card rounded-2xl p-6 border border-emerald-500/30">
+        <div class="flex items-center gap-3 mb-4">
+            <i class="fa-solid fa-users text-[#0f6b43] text-2xl"></i>
+            <h2 class="text-xl font-bold text-white">Red de Vendedores Web</h2>
+        </div>
+        <p class="text-gray-300 text-sm mb-4">
+            Gestiona enlaces de afiliados, comisiones y catálogo asignado para ventas en línea.
+        </p>
+        <div id="vendedoresContent" class="space-y-4">
+            <!-- El contenido dinámico de vendedores se renderizará aquí -->
+        </div>
+    </section>
+</div>
 
     <!-- CONTENIDO DE LA TIENDA PÚBLICA -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6">
