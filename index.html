@@ -7344,15 +7344,27 @@ Los frascos e insumos base ya se descontaron. Ahora ve a la pestaña "5. Depósi
         }
       });
     }
-
-    // Interceptar cambios de pestaña, subpestañas y cierres de modales para detener todo medio activo
-    const _origSwitchPublicTab = typeof switchPublicTab === "function" ? switchPublicTab : null;
-    if (_origSwitchPublicTab) {
-      switchPublicTab = function(tab) {
+// Interceptar cambios de pestaña, asegurando visibilidad
+const _origSwitchPublicTab = typeof switchPublicTab !== 'undefined' ? switchPublicTab : null;
+if (_origSwitchPublicTab) {
+    switchPublicTab = function(tab) {
         silenceOtherMediaPlayers("");
         _origSwitchPublicTab(tab);
-      };
-    }
+        
+        // Lógica para mostrar/ocultar secciones públicas
+        const sections = document.querySelectorAll('.public-tab-content');
+        sections.forEach(sec => {
+            if (sec.id === 'tab-' + tab) {
+                sec.classList.remove('hidden');
+            } else {
+                sec.classList.add('hidden');
+            }
+        });
+    };
+          }
+    
+    // Interceptar cambios de pestaña, subpestañas y cierres de modales para detener todo medio activo
+    
 
     const _origSwitchAgentSubTab = typeof switchAgentSubTab === "function" ? switchAgentSubTab : null;
     if (_origSwitchAgentSubTab) {
