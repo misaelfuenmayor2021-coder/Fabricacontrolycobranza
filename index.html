@@ -7451,13 +7451,19 @@ if (_origSwitchPublicTab) {
       }
     }
 
-    const _origSwitchPublicTabAtm = typeof switchPublicTab === "function" ? switchPublicTab : null;
-    if (_origSwitchPublicTabAtm) {
-      switchPublicTab = function(tab) {
-        _origSwitchPublicTabAtm(tab);
-        applySectionAtmosphere(tab);
-      };
-    }
+    window.switchPublicTab = function(tab) {
+    silenceOtherMediaPlayers("");
+    applySectionAtmosphere(tab);
+    const sections = document.querySelectorAll('.public-tab-content');
+    sections.forEach(sec => {
+        if (sec.id === 'tab-' + tab) {
+            sec.classList.remove('hidden');
+        } else {
+            sec.classList.add('hidden');
+        }
+    });
+};
+
 
     // Modo Sin Internet (Offline-First Queue) para trabajo de campo en caliente
     function getOfflineQueue() {
