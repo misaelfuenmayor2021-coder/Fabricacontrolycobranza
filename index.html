@@ -8928,52 +8928,50 @@ if (document.readyState === "loading") {
             <input type="number" step="0.01" min="0" id="vwProdPrice" placeholder="Precio sugerido ($)" class="w-full px-3 py-2 text-white bg-black/60 border border-white/10 rounded-xl font-bold text-emerald-400" />
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <input type="number" min="1" id="vwProdQty" placeholder="Cantidad / Stock" class="w-full px-3 py-2 text-white bg-black/60 border border-white/10 rounded-xl font-bold" />
-            <input type="text" id="vwProdImg" placeholder="URL de foto (opcional)" class="w-full px-3 py-2 text-white bg-black/60 border border-white/10 rounded-xl" />
-          </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                    <input type="number" min="1" id="vwProdQty" placeholder="Cantidad disponible" class="w-full p-2.5 bg-black/50 border border-emerald-500/30 rounded-xl text-xs text-white" required>
+                                    <input type="text" id="vwProdImg" placeholder="URL de la imagen del producto" class="w-full p-2.5 bg-black/50 border border-emerald-500/30 rounded-xl text-xs text-white" required>
+                                </div>
+                                <div>
+                                    <input type="text" id="vwProdNote" placeholder="Observaciones o descripción" class="w-full p-2.5 bg-black/50 border border-emerald-500/30 rounded-xl text-xs text-white" required>
+                                </div>
+                                <button type="button" onclick="submitVendorWebProduct()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold p-3 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+                                    <i class="fa-solid fa-hourglass-half text-sm"></i>
+                                    <span>Procesar y Enviar Producto</span>
+                                </button>
+                            </div>
+                        </div>
 
-          <input type="text" id="vwProdNote" placeholder="Observación o proveedor de origen" class="w-full px-3 py-2 text-white bg-black/60 border border-white/10 rounded-xl" />
-        </div>
+                        <!-- Columna Derecha: Tablero de Aprobación + Stock de Proveedores -->
+                        <div class="lg:col-span-7 space-y-4">
+                            <!-- Subido por Mí (Vendedor Web) -->
+                            <div class="bg-black/65 border border-amber-500/35 rounded-2xl p-4 space-y-3">
+                                <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                                    <h3 class="font-bold text-sm text-amber-300 uppercase tracking-wider">
+                                        <i class="fa-solid fa-list-check mr-1.5"></i> Mis Productos Registrados
+                                    </h3>
+                                    <span id="vwApprovalSummaryBadge" class="bg-white/10 text-gray-200 px-2.5 py-1 rounded-full text-[10px] font-bold">0 En Revisión</span>
+                                </div>
+                                <div id="vwSubmittedProductsList" class="space-y-2.5 max-h-60 overflow-y-auto pr-1"></div>
+                            </div>
 
-        <button type="button" onclick="submitVendorWebProduct()" class="w-full bg-[#06b43] hover:bg-[#189e64] text-white font-extrabold py-3 rounded-xl shadow-lg border border-[#d4af37]/40 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-hourglass-half text-sm"></i> Enviar a Revisión (Pendiente de Aprobación)
-        </button>
-      </div>
+                            <!-- Disponibles en Stock con Proveedores -->
+                            <div class="bg-black/65 border border-emerald-500/35 rounded-2xl p-4 space-y-3">
+                                <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                                    <h3 class="font-bold text-sm text-emerald-300 uppercase tracking-wider">
+                                        <i class="fa-solid fa-boxes-stacked mr-1.5"></i> Disponibles en Stock con Proveedores
+                                    </h3>
+                                    <button type="button" onclick="renderVendorWebModule()" class="bg-white/10 hover:bg-white/20 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold">
+                                        <i class="fa-solid fa-rotate mr-1"></i> Actualizar
+                                    </button>
+                                </div>
+                                <div id="vwApprovedSupplierStockList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 overflow-y-auto pr-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-      <!-- Columna Derecha: Tablero de Aprobación + Stock de Proveedores Conectado -->
-      <div class="lg:col-span-7 space-y-4">
-        
-        <!-- Subido por Mí (Vendedor Web) -->
-        <div class="bg-black/65 border border-amber-500/35 rounded-2xl p-4 sm:p-5 space-y-3 shadow-lg">
-          <div class="flex justify-between items-center border-b border-white/10 pb-2.5">
-            <h3 class="font-bold text-sm text-amber-300 uppercase flex items-center">
-              <i class="fa-solid fa-list-check mr-1.5"></i> Mis Productos Registrados • Estado de Aprobación
-            </h3>
-            <span id="vwApprovalSummaryBadge" class="bg-white/10 text-gray-200 px-2.5 py-0.5 rounded-full text-[11px] font-bold border border-white/15">0 registros</span>
-          </div>
-          <div id="vwSubmittedProductsList" class="space-y-2.5 max-h-60 overflow-y-auto pr-1"></div>
-        </div>
-
-        <!-- Disponibles en Stock con Proveedores -->
-        <div class="bg-black/65 border border-emerald-500/35 rounded-2xl p-4 sm:p-5 space-y-3 shadow-lg">
-          <div class="flex justify-between items-center border-b border-white/10 pb-2.5">
-            <h3 class="font-bold text-sm text-emerald-300 uppercase flex items-center">
-              <i class="fa-solid fa-boxes-stacked mr-1.5"></i> Disponibles en Stock con Proveedores (Aprobados para Vendedores Web)
-            </h3>
-            <button type="button" onclick="renderVendorWebModule()" class="bg-white/10 hover:bg-white/20 text-white font-bold px-3 py-1 rounded-lg text-[11px] border border-white/15">
-              <i class="fa-solid fa-rotate mr-1"></i> Actualizar
-            </button>
-          </div>
-          <div id="vwApprovedSupplierStockList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-64 overflow-y-auto pr-1"></div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</section>
-
+              
 <script>
   function submitVendorWebProduct() {
     const vwSellerName = (document.getElementById("vwSellerName")?.value || "").trim();
