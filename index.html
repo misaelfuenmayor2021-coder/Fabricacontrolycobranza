@@ -9022,6 +9022,18 @@ if (document.readyState === "loading") {
   });
 </script>
 
+<script>
+window.onerror = function(msg, url, line) {
+    let errDiv = document.getElementById('debug-console');
+    if (!errDiv) {
+        errDiv = document.createElement('div');
+        errDiv.id = 'debug-console';
+        errDiv.style = 'background: black; color: lime; padding: 10px; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 99999; max-height: 200px; overflow-y: auto; font-family: monospace; font-size: 12px; border-top: 2px solid lime;';
+        document.body.appendChild(errDiv);
+    }
+    errDiv.innerHTML += `<div>[Error] ${msg} (Línea: ${line})</div>`;
+};
+</script>
 
 </body>
 </html>
