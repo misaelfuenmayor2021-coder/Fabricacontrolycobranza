@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <script>
+window.onerror = function(mensaje, archivo, linea, columna, error) {
+  const consola = document.createElement('div');
+  consola.style.cssText = 'position:fixed;bottom:0;left:0;width:100%;max-height:150px;overflow-y:auto;background:#7f1d1d;color:#fecaca;font-family:monospace;font-size:12px;padding:10px;z-index:999999;border-top:2px solid #ef4444;';
+  consola.innerHTML = '<strong>ERROR JS:</strong> ' + mensaje + ' (Línea: ' + linea + ')';
+  document.body.appendChild(consola);
+  return false;
+};
+</script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fitocosmética y Perfumes al 100% | Tienda Oficial y Portal Operativo</title>
