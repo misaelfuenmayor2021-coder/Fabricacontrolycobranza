@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+un<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -6736,21 +6736,52 @@ Los frascos e insumos base ya se descontaron. Ahora ve a la pestaña "5. Depósi
     // =========================================================================
     // 11. PERSISTENCIA Y RENDER AUXILIAR
     // =========================================================================
-    let isApplyingRemoteSnapshot = false;
-    function persistSystemState() {
-      try {
-        localStorage.setItem("fito_unified_erp_v18", JSON.stringify(systemState));
-      } catch (storageErr) {
-        console.warn("Aviso almacenamiento local:", storageErr);
-      }
-      if (db) {
-        fbReadyPromise.finally(() => {
-          db.ref("fito_unified_state").set(systemState).catch(err => {
-            console.warn("Sincronización Firebase pendiente:", err && err.message);
-          });
-        });
-      }
+    // =========================================================
+// 11. PERSISTENCIA Y RENDER AUXILIAR
+// =========================================================
+let isApplyingRemoteSnapshot = false;
+
+function persistSystemState() {
+  try {
+    localStorage.setItem("fito_unified_erp_v18", JSON.stringify(systemState));
+  } catch (storageErr) {
+    console.warn("Aviso almacenamiento local:", storageErr);
+  }
+  if (db) {
+    fbReadyPromise.finally(() => {
+      db.ref("fito_unified_state").set(systemState).catch(err => {
+        console.warn("Sincronización Firebase pendiente:", err && err.message);
+      });
+    });
+  }
+}
+
+function initSystemAndModules() {
+  try {
+    const saved = localStorage.getItem("fito_unified_erp_v18");
+    if (saved) {
+      window.systemState = Object.assign(window.systemState || {}, JSON.parse(saved));
+    } else if (!window.systemState) {
+      window.systemState = {};
     }
+  } catch (e) {
+    window.systemState = window.systemState || {};
+  }
+
+  if (typeof renderVendorWebModule === "function") {
+    renderVendorWebModule();
+  }
+  if (typeof renderProveedorPublicModule === "function") {
+    renderProveedorPublicModule();
+  }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initSystemAndModules);
+} else {
+  initSystemAndModules();
+}
+
 
     function getBrandFallbackImg() {
       const cfg = (systemState && systemState.config) || {};
