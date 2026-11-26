@@ -9062,17 +9062,233 @@ if (document.readyState === "loading") {
         stockListEl.innerHTML = '<p class="text-gray-400 col-span-full py-4 text-center">No hay stock de proveedores disponible en este momento.</p>';
       } else {
         stockListEl.innerHTML = approvedStock.map(st => {
+<!-- ========================================== -->
+<!-- MÓDULO INTEGRADO: ESPACIO DE VENDEDORES WEB -->
+<!-- ========================================== -->
+
+<section id="sec-vendedores-web" class="pub-section hidden space-y-6" style="background: radial-gradient(circle at top center, #082315 0%, #05110b 100%);">
+  <div class="emerald-card rounded-2xl p-5 md:p-7 space-y-6 border border-emerald-400/20 shadow-2xl">
+    
+    <!-- Encabezado y Navegación -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-emerald-500/20 pb-5">
+      <div class="space-y-1.5">
+        <span class="inline-block bg-sky-950/80 text-sky-300 border border-sky-500/30 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+          <i class="fa-solid fa-users-gear mr-1"></i> Red de Vendedores Web • Flujo Controlado
+        </span>
+        <h2 class="font-brand text-2xl md:text-3xl font-bold gold-gradient-text">Espacio de Vendedores Web</h2>
+        <p class="text-xs text-gray-300 max-w-2xl">
+          Consulta productos disponibles desde el Stock con Proveedores, registra tus propuestas de productos y gestiona tus solicitudes.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="if(typeof switchPublicTab==='function'){switchPublicTab('perfumeria');}" class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-xl border border-white/10 transition flex items-center gap-2">
+          <i class="fa-solid fa-arrow-left"></i> Volver al Catálogo Principal
+        </button>
+        <a href="https://wa.me/584164030696?text=Hola%20Fitocosm%C3%A9tica%20y%20Perfumes%20al%20100%25%2C%20deseo%20sumarme%20a%20la%20Red%20de%20Vendedores%20Web." target="_blank" rel="noopener noreferrer" class="bg-[#25D366] hover:bg-[#20bd5a] text-black text-xs font-bold px-4 py-2.5 rounded-xl shadow-lg transition flex items-center gap-2">
+          <i class="fa-brands fa-whatsapp text-sm"></i> Sumarme como Vendedor Web
+        </a>
+      </div>
+    </div>
+
+    <!-- Video Explicativo Vendedores Web -->
+    <div class="bg-black/60 border border-sky-500/25 rounded-2xl p-4 space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-sky-300 uppercase tracking-wide">
+          <i class="fa-brands fa-youtube text-red-500 mr-1.5"></i> Video Explicativo Vendedores Web
+        </span>
+        <span class="text-[10px] text-gray-400">Guía Rápida</span>
+      </div>
+      
+      <div id="videoContainerVendedoresWeb" class="aspect-video bg-black flex items-center justify-center rounded-xl overflow-hidden border border-white/10">
+        <!-- Reemplaza ID_VIDEO_VENDEDORES por el ID real de tu video de YouTube -->
+        <iframe 
+          class="w-full h-full" 
+          src="https://www.youtube.com/embed/ID_VIDEO_VENDEDORES?rel=0" 
+          title="Espacio de Vendedores Web - Fitocosmética y Perfumes al 100%" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="text-xs text-gray-400 mt-1 max-w-md">
+        Aquí puedes asignar tu video explicativo sobre cómo registrar productos, comisiones y ventas.
+      </p>
+    </div>
+
+    <!-- Dos Columnas Principales: 1) Registro de Producto | 2) Stock Disponible y Estado -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+      
+      <!-- Columna Izquierda: Formulario de Registro de Producto por Vendedor Web -->
+      <div class="lg:col-span-5 bg-black/65 border border-[#d4af37]/35 rounded-2xl p-4 sm:p-5 space-y-4 shadow-lg">
+        <h3 class="font-bold text-sm text-[#d4af37] uppercase flex items-center">
+          <i class="fa-solid fa-plus-circle mr-1.5"></i> Registrar Producto (Vendedor Web)
+        </h3>
+        <p class="text-xs text-gray-400">
+          El producto quedará en cola de revisión hasta que sea aprobado para pasar al Stock.
+        </p>
+
+        <div class="space-y-3">
+          <input type="text" id="vwSellerName" placeholder="Nombre del Vendedor Web" class="w-full px-3 py-2 text-xs bg-black/80 border border-emerald-500/30 rounded-xl text-white">
+          <input type="text" id="vwProdName" placeholder="Nombre del producto" class="w-full px-3 py-2 text-xs bg-black/80 border border-emerald-500/30 rounded-xl text-white">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <input type="text" id="vwProdRubro" placeholder="Rubro / Categoría" class="w-full px-3 py-2 text-xs bg-black/80 border border-emerald-500/30 rounded-xl text-white">
+            <input type="number" step="0.01" min="0" id="vwProdPrice" placeholder="Precio Sugerido ($)" class="w-full px-3 py-2 text-xs bg-black/80 border border-emerald-500/30 rounded-xl text-white">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <input type="number" min="1" id="vwProdQty" placeholder="Cantidad / Stock" class="w-full px-3 py-2 text-xs bg-black/80 border border-emerald-500/30 rounded-xl text-white">
+            <input type="text" id="vwProdImg" placeholder="URL de Foto (opcional)" class="w-full px-3 py-2 text-xs bg-black/80 border border-emerald-500/30 rounded-xl text-white">
+          </div>
+
+          <textarea id="vwProdNote" rows="2" placeholder="Observación o proveedor de origen" class="w-full p-2.5 text-xs bg-black/80 border border-emerald-500/30 rounded-xl text-white"></textarea>
+
+          <button type="button" onclick="submitVendorWebProduct()" class="w-full bg-[#d4af37] hover:bg-[#e5c158] text-black font-bold py-2.5 px-4 rounded-xl shadow transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-hourglass-half"></i> Enviar a Revisión (Pendiente de Aprobación)
+          </button>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Tablero de Aprobación + Stock de Proveedores Conectado -->
+      <div class="lg:col-span-7 space-y-4">
+        
+        <!-- 1. Subido por Mí (Vendedor Web) -->
+        <div class="bg-black/65 border border-emerald-500/35 rounded-2xl p-4 sm:p-5 space-y-3 shadow-lg">
+          <h3 class="font-bold text-sm text-emerald-300 uppercase flex items-center">
+            <i class="fa-solid fa-list-check mr-1.5"></i> Mis Productos Registrados • Estado de Aprobación
+          </h3>
+          <span id="vwApprovalSummaryBadge" class="bg-white/10 text-gray-300 px-2.5 py-0.5 rounded-full text-[11px]">
+            Cargando registros...
+          </span>
+          <div id="vwSubmittedProductsList" class="space-y-2.5 max-h-60 overflow-y-auto pr-1"></div>
+        </div>
+
+        <!-- 2. Disponibles en Stock con Proveedores -->
+        <div class="bg-black/65 border border-amber-500/35 rounded-2xl p-4 sm:p-5 space-y-3 shadow-lg">
+          <div class="flex justify-between items-center border-b border-white/10 pb-2.5">
+            <h3 class="font-bold text-sm text-amber-300 uppercase flex items-center">
+              <i class="fa-solid fa-boxes-stacked mr-1.5"></i> Disponibles en Stock con Proveedores
+            </h3>
+            <button type="button" onclick="renderVendorWebModule()" class="bg-white/10 hover:bg-white/20 text-white text-[11px] px-3 py-1 rounded-xl transition flex items-center gap-1">
+              <i class="fa-solid fa-rotate mr-1"></i> Actualizar
+            </button>
+          </div>
+          <div id="vwApprovedSupplierStockList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-64 overflow-y-auto pr-1"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function submitVendorWebProduct() {
+    const sellerName = (document.getElementById("vwSellerName")?.value || "").trim();
+    const prodName = (document.getElementById("vwProdName")?.value || "").trim();
+    const prodRubro = (document.getElementById("vwProdRubro")?.value || "").trim() || "General";
+    const prodPrice = parseFloat(document.getElementById("vwProdPrice")?.value || "0") || 0;
+    const prodQty = parseInt(document.getElementById("vwProdQty")?.value || "1", 10) || 1;
+    const prodImg = (document.getElementById("vwProdImg")?.value || "").trim();
+    const prodNote = (document.getElementById("vwProdNote")?.value || "").trim();
+
+    if (!sellerName || !prodName) {
+      alert("Por favor completa el Nombre del Vendedor y el Nombre del Producto.");
+      return;
+    }
+
+    if (typeof window.systemState === "undefined") window.systemState = {};
+    if (!Array.isArray(window.systemState.vendorWebSubmissions)) {
+      window.systemState.vendorWebSubmissions = [];
+    }
+
+    const newSubmission = {
+      id: "vw_sub_" + Date.now(),
+      sellerName: sellerName,
+      name: prodName,
+      rubro: prodRubro,
+      priceUsd: prodPrice,
+      qty: prodQty,
+      img: prodImg,
+      note: prodNote,
+      status: "pendiente",
+      createdAt: new Date().toLocaleString("es-VE")
+    };
+
+    window.systemState.vendorWebSubmissions.unshift(newSubmission);
+
+    ["vwSellerName", "vwProdName", "vwProdRubro", "vwProdPrice", "vwProdQty", "vwProdImg", "vwProdNote"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+
+    if (typeof safePersist === "function") safePersist();
+    else if (typeof persistSystemState === "function") persistSystemState();
+
+    renderVendorWebModule();
+    alert("Producto registrado exitosamente. Queda en estado PENDIENTE DE APROBACIÓN.");
+  }
+
+  function renderVendorWebModule() {
+    const subsListEl = document.getElementById("vwSubmittedProductsList");
+    const stockListEl = document.getElementById("vwApprovedSupplierStockList");
+    const summaryBadge = document.getElementById("vwApprovalSummaryBadge");
+
+    const subs = (window.systemState && Array.isArray(window.systemState.vendorWebSubmissions)) ? window.systemState.vendorWebSubmissions : [];
+    if (summaryBadge) summaryBadge.textContent = `${subs.length} registrado(s)`;
+
+    if (subsListEl) {
+      if (subs.length === 0) {
+        subsListEl.innerHTML = `<p class="text-xs text-gray-400 text-center py-4 bg-white/5 rounded-xl">Aún no has registrado productos.</p>`;
+      } else {
+        subsListEl.innerHTML = subs.map(item => {
+          let badgeHtml = "";
+          if (item.status === "aprobado") {
+            badgeHtml = `<span class="bg-emerald-950 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full text-[10px] font-bold">Aprobado</span>`;
+          } else if (item.status === "rechazado") {
+            badgeHtml = `<span class="bg-red-950 text-red-300 border border-red-500/40 px-2 py-0.5 rounded-full text-[10px] font-bold">Rechazado</span>`;
+          } else {
+            badgeHtml = `<span class="bg-amber-950 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full text-[10px] font-bold">Pendiente de Aprobación</span>`;
+          }
+
           return `
-            <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-xl p-3 space-y-1 shadow">
-              <div class="flex justify-between items-start">
-                <h5 class="font-bold text-emerald-300 text-xs">${st.nombre || 'Producto'}</h5>
-                <span class="bg-emerald-900/80 text-white font-bold px-2 py-0.5 rounded text-[10px]">Stock: ${st.cantidad || 0}</span>
+            <div class="bg-black/60 border border-white/10 rounded-xl p-3 flex justify-between items-center gap-2">
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-1.5">
+                  <h5 class="font-bold text-xs text-white">${item.name}</h5>
+                  ${badgeHtml}
+                </div>
+                <p class="text-[11px] text-amber-300 font-bold">$${(item.priceUsd || 0).toFixed(2)} • Cant: ${item.qty || 1} • ${item.rubro || "General"}</p>
+                ${item.note ? `<p class="text-[10px] text-gray-400 italic">${item.note}</p>` : ""}
               </div>
-              <p class="text-xs text-white font-extrabold">$${Number(st.precioUsd || 0).toFixed(2)}</p>
-              <p class="text-[10px] text-gray-400">Proveedor: ${st.proveedor || 'Aliado'}</p>
+              <span class="text-[10px] text-gray-500 whitespace-nowrap">${item.sellerName || ""}</span>
             </div>
           `;
         }).join("");
+      }
+    }
+
+    if (stockListEl) {
+      let approvedStock = [];
+      if (window.systemState && Array.isArray(window.systemState.supplierStock)) {
+        approvedStock = window.systemState.supplierStock.filter(s => (s.status || "aprobado") === "aprobado");
+      }
+
+      if (approvedStock.length === 0) {
+        stockListEl.innerHTML = `<p class="text-xs text-gray-400 col-span-full text-center py-4 bg-white/5 rounded-xl">No hay stock aprobado de proveedores disponible aún.</p>`;
+      } else {
+        stockListEl.innerHTML = approvedStock.map(st => `
+          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-xl p-3 space-y-1">
+            <div class="flex justify-between items-start">
+              <h5 class="font-bold text-emerald-300 text-xs">${st.name}</h5>
+              <span class="bg-emerald-900/80 text-white font-bold px-2 py-0.5 rounded text-[10px]">$${(st.priceUsd || 0).toFixed(2)}</span>
+            </div>
+            <p class="text-xs text-white font-extrabold">${st.qty} uds.</p>
+            <p class="text-[10px] text-gray-400">Proveedor: ${st.provider || "Aliado"}</p>
+          </div>
+        `).join("");
       }
     }
   }
@@ -9081,6 +9297,9 @@ if (document.readyState === "loading") {
     renderVendorWebModule();
   });
 </script>
+
+<!-- ========================================== -->
+
 
 <script>
 function switchPublicTab(tabId) {
